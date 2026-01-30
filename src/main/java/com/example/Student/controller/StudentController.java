@@ -5,7 +5,6 @@ import com.example.Student.service.StudentService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/students")
 public class StudentController {
