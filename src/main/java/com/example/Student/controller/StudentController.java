@@ -3,7 +3,6 @@ package com.example.Student.controller;
 import com.example.Student.model.Student;
 import com.example.Student.service.StudentService;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
