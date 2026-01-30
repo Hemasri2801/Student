@@ -1,5 +1,4 @@
 package com.example.Student;
-
 import com.example.Student.model.Student;
 import com.example.Student.service.StudentService;
 import org.springframework.boot.SpringApplication;
