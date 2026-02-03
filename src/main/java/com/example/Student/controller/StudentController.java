@@ -6,31 +6,35 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/students")
+@RequestMapping("/api/v1")
 public class StudentController {
     private final StudentService service;
 
     public StudentController(StudentService service) {
         this.service = service;
     }
-    @PostMapping
+    @PostMapping("/student")
     public Student addStudent(@RequestBody Student student){
         return service.addStudent(student);
     }
-    @GetMapping
+    @GetMapping("/students")
     public List<Student> getAllStudents(){
         return service.getAllStudents();
     }
-    @GetMapping("/{id}")
+    @GetMapping("/student/{id}")
     public Student getStudent(@PathVariable int id){
         return service.getStudentById(id);
     }
-    @PutMapping("/{id}")
+    @PutMapping("/student/{id}")
     public Student updateStudent(@PathVariable int id,@RequestBody Student student){
         return service.updateStudent(id,student);
     }
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/student/{id}")
     public String deleteStudent(@PathVariable int id){
         return service.deleteStudent(id);
+    }
+    @PatchMapping("/student/{id}/course")
+    public Student updateCourse(@PathVariable int id,@RequestBody Student student){
+        return service.patchStudentCourse(id, student.getCourse());
     }
 }

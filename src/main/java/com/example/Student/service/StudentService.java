@@ -1,44 +1,55 @@
 package com.example.Student.service;
 import com.example.Student.model.Student;
+import com.example.Student.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class StudentService {
-    private List<Student> students = new ArrayList<>();
 
-    public Student addStudent(Student stu) {
-        students.add(stu);
-        return stu;
+    private final StudentRepository repository;
+
+
+    public StudentService(StudentRepository repository) {
+        this.repository = repository;
+    }
+
+    public Student addStudent(Student student) {
+        return repository.save(student);
     }
 
     public List<Student> getAllStudents() {
-        return students;
+        return repository.findAll();
     }
 
     public Student getStudentById(int id) {
-        for (Student s : students) {
-            if (s.getId() == id){
-                return s;
-        }
+        return repository.findById(id).orElse(null);
     }
-    return null;
-}
-public String deleteStudent(int id){
-    students.removeIf(s->s.getId()==id);
-    return "Student deleted";
-}
 
-    public Student updateStudent(int id, Student updateStudent) {
-        for (Student s:students){
-            if(s.getId()==id){
-                s.setName(updateStudent.getName());
-                s.setAge(updateStudent.getAge());
-                s.setCourse(updateStudent.getCourse());
-                return s;
-            }
+    public Student updateStudent(int id, Student student) {
+        Student s = repository.findById(id).orElse(null);
+        if (s != null) {
+            s.setName(student.getName());
+            s.setAge(student.getAge());
+            s.setCourse(student.getCourse());
+            return repository.save(s);
         }
         return null;
     }
+
+    public Student patchStudentCourse(int id, String course) {
+        Student s = repository.findById(id).orElse(null);
+        if (s != null) {
+            s.setCourse(course);
+            return repository.save(s);
+        }
+        return null;
+    }
+
+    public String deleteStudent(int id) {
+        repository.deleteById(id);
+        return "Student deleted";
+    }
+
 }

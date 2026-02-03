@@ -1,22 +1,35 @@
 package com.example.Student.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "students")
 public class Student {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
+    private Integer id;
     private String name;
-    private int age;
+    private Integer age;
     private String course;
 
     public Student() {
     }
 
-    public int getId() {
+    public Student(Integer id, String name, Integer age, String course) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.course = course;
 
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
-
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -28,11 +41,11 @@ public class Student {
         this.name = name;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
@@ -42,14 +55,6 @@ public class Student {
 
     public void setCourse(String course) {
         this.course = course;
-    }
-
-    public Student(int id, String name, int age, String course) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.course = course;
-
     }
 
     @Override
